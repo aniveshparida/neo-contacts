@@ -4,7 +4,9 @@ A responsive React contact management application built for Tria's technical ass
 
 ## 🚀 Live Demo
 
-[Deploy your own version](#deployment) or view the live application.
+**🌐 [View Live Application](https://contacts-beta-three.vercel.app/)**
+
+Experience the full-featured contact management application deployed on Vercel. The live demo showcases all core features including contact viewing, searching, adding new contacts, and the responsive dark theme design.
 
 ## ✨ Features
 
@@ -145,6 +147,9 @@ src/
 - **ViewModeToggle**: Switch between grid and list views
 
 ## 🚀 Deployment
+
+### ✅ Currently Deployed
+This application is **live and deployed** on Vercel at [https://contacts-beta-three.vercel.app/](https://contacts-beta-three.vercel.app/)
 
 ### Vercel (Recommended)
 1. Push your code to GitHub
