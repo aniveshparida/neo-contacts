@@ -1,7 +1,7 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { Contact, ViewMode, SortOption } from '@/types/contact';
-import { seedContacts } from '@/data/seedContacts';
 import { searchContacts, sortContacts } from '@/utils/contactUtils';
+import { useContacts } from '@/hooks/useContacts';
 import { ContactCard } from '@/components/ContactCard';
 import { SearchBar } from '@/components/SearchBar';
 import { ContactModal } from '@/components/ContactModal';
@@ -15,15 +15,12 @@ import { LoadingSkeleton } from '@/components/LoadingSkeleton';
 import { useToast } from '@/hooks/use-toast';
 import { Star } from 'lucide-react';
 
-const STORAGE_KEY = 'contacts-app-data';
-
 const Index = () => {
-  const [contacts, setContacts] = useState<Contact[]>([]);
+  const { contacts, isLoading, addContact, updateContact, deleteContact, toggleFavorite } = useContacts();
   const [searchQuery, setSearchQuery] = useState('');
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
   const [sortBy, setSortBy] = useState<SortOption>('a-z');
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
   
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
@@ -33,29 +30,6 @@ const Index = () => {
   const [contactToDelete, setContactToDelete] = useState<Contact | null>(null);
   
   const { toast } = useToast();
-
-  // Load contacts from localStorage or use seed data
-  useEffect(() => {
-    const loadContacts = () => {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        setContacts(JSON.parse(stored));
-      } else {
-        setContacts(seedContacts);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(seedContacts));
-      }
-      setIsLoading(false);
-    };
-
-    setTimeout(loadContacts, 500); // Simulate loading
-  }, []);
-
-  // Save contacts to localStorage whenever they change
-  useEffect(() => {
-    if (contacts.length > 0) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(contacts));
-    }
-  }, [contacts]);
 
   // Filter and sort contacts
   const filteredContacts = useMemo(() => {
@@ -67,12 +41,7 @@ const Index = () => {
   }, [contacts, searchQuery, sortBy, showFavoritesOnly]);
 
   const handleAddContact = (contactData: Omit<Contact, 'id' | 'createdAt'>) => {
-    const newContact: Contact = {
-      ...contactData,
-      id: crypto.randomUUID(),
-      createdAt: Date.now(),
-    };
-    setContacts(prev => [...prev, newContact]);
+    const newContact = addContact(contactData);
     toast({
       title: 'Contact added',
       description: `${newContact.name} has been added to your contacts.`,
@@ -82,13 +51,7 @@ const Index = () => {
   const handleEditContact = (contactData: Omit<Contact, 'id' | 'createdAt'>) => {
     if (!selectedContact) return;
     
-    setContacts(prev => 
-      prev.map(c => 
-        c.id === selectedContact.id 
-          ? { ...contactData, id: c.id, createdAt: c.createdAt }
-          : c
-      )
-    );
+    updateContact(selectedContact.id, contactData);
     toast({
       title: 'Contact updated',
       description: `${contactData.name}'s information has been updated.`,
@@ -98,7 +61,7 @@ const Index = () => {
   const handleDeleteContact = () => {
     if (!contactToDelete) return;
     
-    setContacts(prev => prev.filter(c => c.id !== contactToDelete.id));
+    deleteContact(contactToDelete.id);
     toast({
       title: 'Contact deleted',
       description: `${contactToDelete.name} has been removed from your contacts.`,
@@ -109,9 +72,7 @@ const Index = () => {
   };
 
   const handleToggleFavorite = (id: string) => {
-    setContacts(prev =>
-      prev.map(c => c.id === id ? { ...c, isFavorite: !c.isFavorite } : c)
-    );
+    toggleFavorite(id);
   };
 
   const openAddModal = () => {

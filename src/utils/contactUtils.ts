@@ -36,6 +36,8 @@ export const searchContacts = (contacts: Contact[], query: string): Contact[] =>
   const searchTerm = query.toLowerCase().trim();
   if (!searchTerm) return contacts;
   
+  // Convert both search term and contact data to lowercase for case-insensitive matching
+  // This ensures users can find contacts regardless of case differences
   return contacts.filter(contact => 
     contact.name.toLowerCase().includes(searchTerm) ||
     contact.email.toLowerCase().includes(searchTerm) ||

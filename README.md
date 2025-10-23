@@ -1,73 +1,203 @@
-# Welcome to your Lovable project
+# Tria Contact List Assignment
 
-## Project info
+A responsive React contact management application built for Tria's technical assessment. This application demonstrates modern React development practices, clean architecture, and professional UI/UX design.
 
-**URL**: https://lovable.dev/projects/35ab0b38-a415-40d5-b979-81fb71839c32
+## 🚀 Live Demo
 
-## How can I edit this code?
+[Deploy your own version](#deployment) or view the live application.
 
-There are several ways of editing your application.
+## ✨ Features
 
-**Use Lovable**
+### Core Features
+- **Contact Management**: View, add, edit, and delete contacts
+- **Search Functionality**: Real-time search across contact names, emails, phones, and companies
+- **Favorites System**: Mark contacts as favorites and filter by favorites
+- **Responsive Design**: Optimized for desktop, tablet, and mobile devices
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/35ab0b38-a415-40d5-b979-81fb71839c32) and start prompting.
+### Additional Features
+- **Dark Mode Theme**: Modern dark theme with smooth transitions
+- **Grid/List View Toggle**: Switch between card grid and list layouts
+- **Sorting Options**: Sort contacts alphabetically (A-Z, Z-A) or by creation date
+- **Loading States**: Professional loading skeletons and transitions
+- **Toast Notifications**: User feedback for all actions
+- **Local Storage**: Persistent data storage across browser sessions
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🛠 Tech Stack and Rationale
 
-**Use your preferred IDE**
+### Core Technologies
+- **React 18**: Modern React with hooks for component state management and lifecycle
+- **TypeScript**: Type safety and improved developer experience
+- **Vite**: Fast build tool and development server for optimal performance
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### UI and Styling
+- **Tailwind CSS**: Utility-first CSS framework chosen for rapid, consistent styling and robust mobile responsiveness
+- **shadcn/ui**: High-quality, accessible component library built on Radix UI primitives
+- **Lucide React**: Beautiful, customizable icons for consistent visual language
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### State Management
+- **Custom Hooks**: Clean separation of concerns with `useContacts` hook for data management
+- **React Query**: Efficient data fetching and caching (configured but using localStorage for demo)
 
-Follow these steps:
+### Development Tools
+- **ESLint**: Code quality and consistency
+- **PostCSS**: CSS processing and optimization
+- **Autoprefixer**: Cross-browser CSS compatibility
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 🎨 Design Choices and Assumptions
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Dark Mode Theme
+The application uses a sophisticated dark theme as the primary design choice. This decision was made because:
+- **Modern Appeal**: Dark themes are increasingly popular in professional applications
+- **Reduced Eye Strain**: Better for extended use, especially in low-light environments
+- **Professional Aesthetic**: Aligns with modern SaaS and developer tool interfaces
 
-# Step 3: Install the necessary dependencies.
-npm i
+### Card-Based Grid Layout
+The default grid layout uses cards for several reasons:
+- **Visual Hierarchy**: Cards create clear boundaries and improve content organization
+- **Mobile Responsiveness**: Cards adapt naturally to different screen sizes
+- **Information Density**: Allows users to see more contacts at once while maintaining readability
+- **Interactive Elements**: Cards provide clear touch targets for mobile users
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+### Case-Insensitive Search Implementation
+The search functionality converts both search terms and contact data to lowercase before comparison. This approach:
+- **User-Friendly**: Matches user expectations for search behavior
+- **Comprehensive**: Ensures no contacts are missed due to case differences
+- **Performance**: Simple string operations with minimal overhead
+- **Accessibility**: Reduces cognitive load for users
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn package manager
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd tria-contact-list
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Open your browser**
+   Navigate to `http://localhost:5173` to view the application.
+
+### Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+
+## 📱 Usage
+
+### Adding Contacts
+1. Click the floating action button (+) in the bottom right
+2. Fill in the contact form with required information
+3. Click "Save Contact" to add to your list
+
+### Searching Contacts
+- Use the search bar at the top to find contacts by name, email, phone, or company
+- Search is case-insensitive and updates in real-time
+
+### Managing Contacts
+- **View**: Click on any contact card to view full details
+- **Edit**: Click the edit button (pencil icon) on any contact
+- **Delete**: Click the delete button (trash icon) and confirm deletion
+- **Favorite**: Click the star icon to toggle favorite status
+
+### View Options
+- **Grid View**: Default card-based layout (desktop optimized)
+- **List View**: Compact list layout (mobile optimized)
+- **Favorites Filter**: Toggle to show only favorite contacts
+- **Sort Options**: Sort alphabetically or by creation date
+
+## 🏗 Architecture
+
+### Project Structure
+```
+src/
+├── components/          # Reusable UI components
+│   ├── ui/             # Base UI components (shadcn/ui)
+│   └── ...             # Feature-specific components
+├── hooks/              # Custom React hooks
+├── pages/              # Page components
+├── types/              # TypeScript type definitions
+├── utils/              # Utility functions
+└── data/               # Mock data and constants
 ```
 
-**Edit a file directly in GitHub**
+### Key Components
+- **useContacts**: Custom hook managing contact data and operations
+- **ContactCard**: Individual contact display component
+- **ContactModal**: Form for adding/editing contacts
+- **SearchBar**: Real-time search functionality
+- **ViewModeToggle**: Switch between grid and list views
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 🚀 Deployment
 
-**Use GitHub Codespaces**
+### Vercel (Recommended)
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Deploy with zero configuration
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Netlify
+1. Build the project: `npm run build`
+2. Deploy the `dist` folder to Netlify
+3. Configure redirects for SPA routing
 
-## What technologies are used for this project?
+### GitHub Pages
+1. Build the project: `npm run build`
+2. Push the `dist` folder to a `gh-pages` branch
+3. Enable GitHub Pages in repository settings
 
-This project is built with:
+## 🔧 Configuration
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Environment Variables
+No environment variables are required for the basic setup. The application uses localStorage for data persistence.
 
-## How can I deploy this project?
+### Customization
+- **Theme**: Modify colors in `tailwind.config.ts`
+- **Components**: Customize UI components in `src/components/ui/`
+- **Data**: Update seed data in `src/data/seedContacts.ts`
 
-Simply open [Lovable](https://lovable.dev/projects/35ab0b38-a415-40d5-b979-81fb71839c32) and click on Share -> Publish.
+## 📝 Assumptions and Design Decisions
 
-## Can I connect a custom domain to my Lovable project?
+### Data Persistence
+- Uses localStorage for demo purposes (simulates API calls with 1.5s delay)
+- In production, this would connect to a real API endpoint
+- Contact IDs are generated using `crypto.randomUUID()`
 
-Yes, you can!
+### Form Validation
+- Email validation using regex pattern
+- Phone validation accepts various formats (US-focused)
+- Required fields: name, email, phone, company
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+### Responsive Breakpoints
+- Mobile: < 768px (single column)
+- Tablet: 768px - 1024px (2 columns)
+- Desktop: > 1024px (3-4 columns)
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+### Accessibility
+- Keyboard navigation support
+- Screen reader friendly
+- High contrast ratios
+- Focus indicators
+
+## 🤝 Contributing
+
+This is a technical assessment project. For questions or feedback, please reach out through the appropriate channels.
+
+## 📄 License
+
+This project is created for Tria's technical assessment purposes.
